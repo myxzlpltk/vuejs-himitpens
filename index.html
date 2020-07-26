@@ -16,7 +16,12 @@
 		<hr>
 		<div id="search-box">
 			<div class="form-group">
-				<input type="text" name="query" class="form-control" id="search" placeholder="Ketik pencarian">
+				<div class="input-group mb-3">
+					<input type="text" name="query" class="form-control" id="search" placeholder="Ketik pencarian" v-model="query">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" type="button" @click="clear">Bersihkan</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -27,6 +32,7 @@
 			el: '#app',
 			data: {
 				url: 'https://www.youtube.com/watch?v=klnvttPfOUM',
+				query: '',
 			},
 			computed: {
 				getYoutubeID(url){
@@ -42,6 +48,12 @@
 					}
 				}
 			},
+			methods: {
+				clear(event){
+					this.query = '';
+					event.target.blur();
+				}
+			}
 		});
 	</script>
 </body>
