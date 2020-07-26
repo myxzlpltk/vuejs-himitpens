@@ -44,6 +44,21 @@
 
 	<script type="text/javascript" src="vue.js"></script>
 	<script type="text/javascript">
+		function debounce(func, wait, immediate) {
+			var timeout;
+			return function() {
+				var context = this, args = arguments;
+				var later = function() {
+					timeout = null;
+					if (!immediate) func.apply(context, args);
+				};
+				var callNow = immediate && !timeout;
+				clearTimeout(timeout);
+				timeout = setTimeout(later, wait);
+				if (callNow) func.apply(context, args);
+			};
+		};
+
 		var app = new Vue({
 			el: '#app',
 			data: {
@@ -56,7 +71,8 @@
 					last: null,
 					page: null,
 					total: 0
-				}
+				},
+				last_query: ''
 			},
 			computed: {
 				getYoutubeID(url){
@@ -77,6 +93,14 @@
 					this.query = '';
 					event.target.blur();
 				}
+			},
+			watch: {
+				query: debounce(async function(query){
+					query = query.trim();
+					if(query.length >= 1 && this.last_query != query){
+						this.last_query = query;
+					}
+				}, 250)
 			}
 		});
 	</script>
