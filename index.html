@@ -10,7 +10,7 @@
 		<img src="https://img.youtube.com/vi/youtube_id/hqdefault.jpg" class="img-fluid d-block mx-auto mb-4">
 		<div id="youtube-url">
 			<div class="form-group">
-				<input type="text" name="url" class="form-control" id="search" placeholder="URL Youtube">
+				<input type="text" name="url" class="form-control" id="search" placeholder="URL Youtube" v-model="url">
 			</div>
 		</div>
 		<hr>
@@ -26,8 +26,8 @@
 		var app = new Vue({
 			el: '#app',
 			data: {
-				text: 'Halo dunia!'
-			}
+				url: 'https://www.youtube.com/watch?v=klnvttPfOUM',
+			},
 		});
 	</script>
 </body>
