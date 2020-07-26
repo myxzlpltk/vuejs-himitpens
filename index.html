@@ -24,6 +24,22 @@
 				</div>
 			</div>
 		</div>
+		<nav aria-label="Halaman navigasi">
+			<ul class="pagination justify-content-center">
+				<li class="page-item" :class="{disabled: !pagination.first}">
+					<button class="page-link">Awal</button>
+				</li>
+				<li class="page-item" :class="{disabled: !pagination.prev}">
+					<button class="page-link">Sebelumnya</button>
+				</li>
+				<li class="page-item" :class="{disabled: !pagination.next}">
+					<button class="page-link">Selanjutnya</button>
+				</li>
+				<li class="page-item" :class="{disabled: !pagination.last}">
+					<button class="page-link">Akhir</button>
+				</li>
+			</ul>
+		</nav>
 	</div>
 
 	<script type="text/javascript" src="vue.js"></script>
@@ -33,6 +49,14 @@
 			data: {
 				url: 'https://www.youtube.com/watch?v=klnvttPfOUM',
 				query: '',
+				pagination: {
+					first: null,
+					prev: null,
+					next: null,
+					last: null,
+					page: null,
+					total: 0
+				}
 			},
 			computed: {
 				getYoutubeID(url){
