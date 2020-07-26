@@ -30,6 +30,7 @@
 				<span class="badge badge-primary badge-pill">{{ time(item.start) }}</span>
 			</a>
 		</div>
+		<p class="text-center text-muted" :class="{'d-none': !pagination.total}">Halaman {{ this.pagination.page }} dari {{ Math.ceil(this.pagination.total/10) }}</p>
 		<nav aria-label="Halaman navigasi">
 			<ul class="pagination justify-content-center">
 				<li class="page-item" :class="{disabled: !pagination.first}">
