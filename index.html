@@ -110,18 +110,14 @@
 				}
 			},
 			methods: {
-				async search(query, isUsingURL){
+				async search(query, page = 1){
 					try{
-						if(isUsingURL){
-							var url = isUsingURL;
-						}
-						else{
-							var params = {
-								q: query,
-								url: this.url
-							};
-							var url = this.endpoint + '?' + Object.keys(params).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k])).join('&');
-						}
+						var params = {
+							page: page,
+							q: query,
+							url: this.url
+						};
+						var url = this.endpoint + '?' + Object.keys(params).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k])).join('&');
 
 						var result = await fetch(url).then(response => response.ok ? response.json() : []);
 
@@ -137,8 +133,19 @@
 					}
 				},
 				async navigate(key){
-					if(this.pagination[key]){
-						await this.search(this.query, this.pagination[key]);
+					switch(key){
+						case 'first':
+							await this.search(this.query, 1)
+							break;
+						case 'prev':
+							await this.search(this.query, this.pagination.page-1)
+							break;
+						case 'next':
+							await this.search(this.query, this.pagination.page+1)
+							break;
+						case 'last':
+							await this.search(this.query, Math.ceil(this.pagination.total/10))
+							break;
 					}
 				},
 				clear(event){
