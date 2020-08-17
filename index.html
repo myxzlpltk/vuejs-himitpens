@@ -80,7 +80,7 @@
 					total: 0
 				},
 				list: [],
-				last_query: '',
+				lastQuery: '',
 				endpoint: 'https://cari-teks-video-api.vercel.app/api/search'
 			},
 			computed: {
@@ -98,13 +98,13 @@
 				},
 				time(seconds){
 					return function(seconds){
-						var hours = Math.floor(seconds/3600);
+						var hours = Math.floor(seconds / 3600);
 						if(hours > 0){
-							seconds = seconds%3600;
-							return hours + ':' + Math.floor(seconds/60) + ':' + (seconds%60);
+							seconds = seconds % 3600;
+							return hours + ':' + Math.floor(seconds / 60) + ':' + (seconds % 60);
 						}
 						else{
-							return Math.floor(seconds/60) + ':' + (seconds%60);
+							return Math.floor(seconds / 60) + ':' + (seconds % 60);
 						}
 					}
 				}
@@ -138,13 +138,13 @@
 							await this.search(this.query, 1)
 							break;
 						case 'prev':
-							await this.search(this.query, this.pagination.page-1)
+							await this.search(this.query, this.pagination.page - 1)
 							break;
 						case 'next':
-							await this.search(this.query, this.pagination.page+1)
+							await this.search(this.query, this.pagination.page + 1)
 							break;
 						case 'last':
-							await this.search(this.query, Math.ceil(this.pagination.total/10))
+							await this.search(this.query, Math.ceil(this.pagination.total / 10))
 							break;
 					}
 				},
@@ -163,8 +163,8 @@
 			watch: {
 				query: debounce(async function(query){
 					query = query.trim();
-					if(query.length >= 3 && this.last_query != query){
-						this.last_query = query;
+					if(query.length >= 3 && this.lastQuery != query){
+						this.lastQuery = query;
 						await this.search(query);
 					}
 				}, 250)
